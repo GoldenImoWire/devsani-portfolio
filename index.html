@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Dev|Sani — Full Stack Developer specializing in Web Development, AI, and Backend Systems.">
+  <title>Dev|Sani — Full Stack Developer</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- AOS Scroll Animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <nav>
+    <div class="logo">Dev|Sani</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Building Digital Experiences That Matter.</h1>
+      <h2><span id="typing"></span></h2>
+      <button class="hire-btn" onclick="scrollToContact()">Hire Me</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section" data-aos="fade-up">
+    <h2>About Me</h2>
+    <p>
+      I'm Dev|Sani, a full stack developer focused on building scalable web
+      applications, AI tools, and backend systems that solve real problems.
+    </p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section" data-aos="fade-up">
+    <h2>Services</h2>
+    <ul>
+      <li>✔ Full Stack Web Development</li>
+      <li>✔ REST API Development</li>
+      <li>✔ UI/UX Modern Design</li>
+      <li>✔ Portfolio & Business Websites</li>
+      <li>✔ Backend Integration</li>
+    </ul>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section" data-aos="fade-up">
+    <h2>Selected Projects</h2>
+    <div class="project-grid">
+      <div class="project-card" onclick="openModal('Weather Intelligence App','Real-time weather dashboard powered by API integration.')">
+        <h3>Weather Intelligence App</h3>
+      </div>
+      <div class="project-card" onclick="openModal('Node.js REST API','Scalable backend server with authentication system.')">
+        <h3>Node.js REST API</h3>
+      </div>
+      <div class="project-card" onclick="openModal('AI Assistant Tool','Smart AI-powered assistant for productivity tasks.')">
+        <h3>AI Assistant Tool</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" data-aos="fade-up">
+    <h2>Client Testimonials</h2>
+    <blockquote>
+      "Dev|Sani delivered beyond expectations. Fast, professional and clean code."
+    </blockquote>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" data-aos="fade-up">
+    <h2>Let's Build Something Powerful</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+      <button type="submit" class="hire-btn">Send Message</button>
+    </form>
+    <div class="contact-info">
+      <p>Email: saniavdoull56@gmail.com</p>
+      <p>Phone: +234-70439-39403</p>
+      <p>Available for freelance & remote work worldwide.</p>
+    </div>
+    <div class="socials">
+      <a href="https://github.com/YOURUSERNAME" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/YOURUSERNAME" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Dev|Sani. All rights reserved.</p>
+  <p>Your information is kept confidential and never shared.</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()">×</span>
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init();</script>
+</body>
+</html>
