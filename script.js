@@ -1,14 +1,21 @@
-  // Smooth scroll to contact section
+// ===============================
+// SMOOTH SCROLL
+// ===============================
 function scrollToContact() {
-  document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("contact").scrollIntoView({
+    behavior: "smooth",
+  });
 }
 
-// Typing headline animation
+// ===============================
+// TYPING ANIMATION
+// ===============================
 const textArray = [
   "Full Stack Developer",
   "Building Modern Web Apps",
-  "Turning Ideas Into Reality"
+  "Turning Ideas Into Reality",
 ];
+
 let textIndex = 0;
 let charIndex = 0;
 let currentText = "";
@@ -25,69 +32,94 @@ function typeEffect() {
 
   document.getElementById("typing").textContent = currentText;
 
-  if (charIndex === textArray[textIndex].length) isDeleting = true;
+  if (charIndex === textArray[textIndex].length) {
+    isDeleting = true;
+    setTimeout(() => {}, 800);
+  }
+
   if (charIndex === 0 && isDeleting) {
     isDeleting = false;
     textIndex++;
   }
 
-  setTimeout(typeEffect, isDeleting ? 80 : 120);
+  setTimeout(typeEffect, isDeleting ? 70 : 120);
 }
-typeEffect();
 
-// Modal project popups
+document.addEventListener("DOMContentLoaded", typeEffect);
+
+// ===============================
+// PROJECT MODAL
+// ===============================
 function openModal(title, desc) {
-  document.getElementById("modal").style.display = "block";
+  document.getElementById("modal").style.display = "flex";
   document.getElementById("modalTitle").innerText = title;
   document.getElementById("modalDesc").innerText = desc;
 }
+
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Contact form submission (frontend demo)
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+window.onclick = function (event) {
+  const modal = document.getElementById("modal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
+// ===============================
+// SCROLL REVEAL ANIMATION
+// ===============================
+const revealElements = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
+
+  revealElements.forEach((el) => {
+    const elementTop = el.getBoundingClientRect().top;
+
+    if (elementTop < windowHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+
+// ===============================
+// CONTACT FORM - PRO FETCH
+// ===============================
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Show loading spinner effect
-  const button = this.querySelector("button");
-  button.innerHTML = "Sending...";
-  button.disabled = true;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
 
-  setTimeout(() => {
-    alert("Message received. Dev|Sani will contact you soon.");
-    button.innerHTML = "Send Message";
-    button.disabled = false;
-    this.reset();
-  }, 1500);
-});
-
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const name = this.name.value;
-  const email = this.email.value;
-  const message = this.message.value;
-
-  const button = this.querySelector("button");
+  const button = form.querySelector("button");
   button.innerHTML = "Sending...";
   button.disabled = true;
 
   try {
-    const response = await fetch("http://localhost:5000/api/messages", {
+    const res = await fetch("https://devsani-backend.onrender.com/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, message })
+      body: JSON.stringify({ name, email, message }),
     });
 
-    if (response.ok) {
-      alert("Message sent successfully! Dev|Sani will contact you soon.");
-      this.reset();
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      alert("🚀 Message sent successfully!");
+      form.reset();
     } else {
-      alert("Oops! Something went wrong. Try again later.");
+      alert(data.message || "Error sending message");
     }
-  } catch (error) {
-    alert("Error sending message. Please check your connection.");
+  } catch (err) {
+    console.error(err);
+    alert("Server error. Make sure backend is running.");
   }
 
   button.innerHTML = "Send Message";
