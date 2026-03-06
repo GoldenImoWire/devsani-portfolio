@@ -352,7 +352,7 @@ if (form) {
     submitBtn.disabled = true;
 
     try {
-      const API_URL = 'https://devsani-backend.onrender.com';
+      const API_URL = 'https://devsani-backend.onrender.com/send';
       
       const res = await fetch(API_URL, {
         method: 'POST',
