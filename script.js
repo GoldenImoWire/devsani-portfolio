@@ -333,7 +333,7 @@ toggleBtn.addEventListener('click', () => {
 initTheme();
 
 // ===============================
-// CONTACT FORM (ENHANCED)
+// CONTACT FORM (FIXED - UPDATED API URL)
 // ===============================
 const form = document.getElementById('contactForm');
 const submitBtn = form.querySelector('.submit-btn');
@@ -352,15 +352,22 @@ if (form) {
     submitBtn.disabled = true;
 
     try {
-      const API_URL = 'https://devsani-backend.onrender.com/send';
+      // FIXED: Updated to your actual Railway URL
+      const API_URL = 'https://devsani-backend-production.up.railway.app/send';
       
+      console.log('Sending to:', API_URL);
+      console.log('Data:', { name, email, subject, message });
+
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, subject, message }),
       });
 
+      console.log('Response status:', res.status);
+      
       const data = await res.json();
+      console.log('Response data:', data);
 
       if (res.ok && data.success) {
         // Success state
@@ -375,13 +382,13 @@ if (form) {
           submitBtn.disabled = false;
         }, 3000);
       } else {
-        throw new Error(data.message || 'Error sending message');
+        throw new Error(data.message || `Server error: ${res.status}`);
       }
     } catch (err) {
-      console.error(err);
+      console.error('Full error:', err);
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
-      showToast('Failed to send message. Please try again.', 'error');
+      showToast(`Failed: ${err.message}`, 'error');
     }
   });
 }
